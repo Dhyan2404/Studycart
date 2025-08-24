@@ -10,7 +10,7 @@ import { Skeleton } from '@/components/ui/skeleton';
 import type { SalesSummary as SalesSummaryType } from '@/lib/types';
 import CountUp from 'react-countup';
 
-const PROFIT_MARGIN_PER_SALE = 70;
+const PROFIT_MARGIN_PER_SALE = 0;
 
 export function SalesSummary() {
   const [summary, setSummary] = useState<SalesSummaryType>({
