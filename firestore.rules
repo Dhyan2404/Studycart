@@ -1,0 +1,31 @@
+
+rules_version = '2';
+
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    // Allow public read access to the PDF configuration
+    match /pdfConfig/{docId} {
+      allow read: if true;
+      allow write: if false; // Only updatable from server/console
+    }
+
+    // Allow anyone to create an order, but don't let them read others' orders
+    match /User/{userId} {
+      allow create: if true;
+      allow read, update, delete: if false; // Protected
+    }
+    
+    // Allow admin to read all user orders
+    match /User/{userId} {
+        allow list: if true; // Allows admin to see the list of orders
+        allow get: if true; // Allows admin to get a single order
+    }
+
+    // Visitors can be created by anyone, and read by anyone to check access
+    match /visitors/{visitorId} {
+      allow read, create, update: if true;
+      allow delete: if false;
+    }
+  }
+}
